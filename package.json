@@ -1,0 +1,96 @@
+{
+  "name": "steven-express-starter-kit",
+  "description": "Steven's Express Starter Kit",
+  "author": "Chen Fang",
+  "version": "1.0.0",
+  "license": "MIT",
+  "keywords": [
+    "RestAPI",
+    "Nodejs",
+    "Express"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chenfanggm/steven-express-starter-kit"
+  },
+  "scripts": {
+    "dev": "better-npm-run dev",
+    "start": "better-npm-run start",
+    "forever": "better-npm-run start",
+    "test": "better-npm-run test",
+    "cluster": "better-npm-run cluster"
+  },
+  "betterScripts": {
+    "dev": {
+      "command": "nodemon bin/start.js",
+      "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "start": {
+      "command": "nodemon bin/start.js",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    },
+    "forever": {
+      "command": "forever start -c node bin/start.js",
+      "env": {
+        "NODE_ENV": "production"
+      }
+    },
+    "test": {
+      "command": "node node_modules/.bin/isparta cover _mocha -- --ui bdd --reporter spec --colors ./test/**/*.spec.js",
+      "env": {
+        "NODE_ENV": "test",
+        "DEBUG": "app:*"
+      }
+    },
+    "cluster": {
+      "command": "node bin/cluster.js",
+      "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
+    }
+  },
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "better-npm-run": "0.0.13",
+    "bluebird": "^3.4.6",
+    "compression": "^1.6.2",
+    "cors": "^2.8.1",
+    "debug": "^2.3.3",
+    "express": "^4.14.0",
+    "express-validator": "^2.21.0",
+    "express-winston": "^2.0.0",
+    "forever": "^0.15.3",
+    "helmet": "^3.1.0",
+    "http-status": "^0.2.3",
+    "jsonwebtoken": "^7.1.9",
+    "method-override": "^2.3.7",
+    "moment": "^2.16.0",
+    "mongoose": "^4.6.8",
+    "winston": "^2.3.0"
+  },
+  "devDependencies": {
+    "async": "^2.1.2",
+    "chai": "^3.5.0",
+    "eslint": "^3.10.2",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-friendly-formatter": "^2.0.5",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-html": "^1.7.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "isparta": "^4.0.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.1.2",
+    "nodemon": "^1.11.0",
+    "supertest": "^2.0.1",
+    "supertest-as-promised": "^4.0.2"
+  }
+}
