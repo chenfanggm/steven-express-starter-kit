@@ -91,7 +91,7 @@ var hasUser = function (email) {
 }
 
 var hasUsername = function (username) {
-  const usernameRegex = new RegExp('^${username}$', 'i');
+  const usernameRegex = new RegExp('^' + username + '$', 'i')
   return new Promise(function (resolve, reject) {
     User.findOne({ username: { $regex: usernameRegex, $options: 'i' } })
       .exec()
@@ -135,7 +135,7 @@ var getRefreshTokenExpireDate = function () {
 }
 
 var getRefreshToken = function (userId, device) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     new Token({
       userId: userId,
       device: device
@@ -155,16 +155,16 @@ var getRefreshToken = function (userId, device) {
 }
 
 const updateRefreshToken = function (userId, device) {
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const refreshToken = generateRefreshToken(userId)
     const tokenSalt = bcrypt.genSaltSync(1)
     const hashedRefreshToken = bcrypt.hashSync(refreshToken, tokenSalt)
-    const dbTimeNow = moment().format("YYYY-MM-DD HH:mm:ss")
+    const dbTimeNow = moment().format('YYYY-MM-DD HH:mm:ss')
 
     User.findByIdAndUpdate(userId, {updatedAt: dbTimeNow})
       .then(function (user) {
         if (user != null) {
-          const token = new Token
+          const token = new Token()
           token.device = device
           token.refreshToken = hashedRefreshToken
           token.updatedAt = dbTimeNow
@@ -189,8 +189,8 @@ const updateRefreshToken = function (userId, device) {
 }
 
 const removeRefreshToken = function (userId) {
-  return new Promise(function(resolve, reject) {
-    const dbTimeNow = moment().format("YYYY-MM-DD HH:mm:ss")
+  return new Promise(function (resolve, reject) {
+    const dbTimeNow = moment().format('YYYY-MM-DD HH:mm:ss')
 
     User.findOneAndUpdate({_id: userId},
       { $set: {token: '', updatedAt: dbTimeNow} },
@@ -209,11 +209,11 @@ const removeRefreshToken = function (userId) {
 }
 
 const updateUsername = function (userId, username) {
-  return new Promise(function(resolve, reject) {
-    const dbTimeNow = moment().format("YYYY-MM-DD HH:mm:ss")
+  return new Promise(function (resolve, reject) {
+    const dbTimeNow = moment().format('YYYY-MM-DD HH:mm:ss')
 
     User.findOneAndUpdate({ _id: userId },
-      { $set: { username: username, updatedAt: dbTimeNow }},
+      { $set: { username: username, updatedAt: dbTimeNow } },
       { new: true })
       .then(function (user) {
         if (user) {
@@ -229,11 +229,11 @@ const updateUsername = function (userId, username) {
 }
 
 const updateLastReadMessageAt = function (userId) {
-  return new Promise(function(resolve, reject) {
-    const dbTimeNow = moment().format("YYYY-MM-DD HH:mm:ss")
+  return new Promise(function (resolve, reject) {
+    const dbTimeNow = moment().format('YYYY-MM-DD HH:mm:ss')
 
     User.findOneAndUpdate({ _id: userId },
-      { $set: { lastReadMessageAt: dbTimeNow }},
+      { $set: { lastReadMessageAt: dbTimeNow } },
       {new: true})
       .then(function (user) {
         if (user) {

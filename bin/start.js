@@ -8,6 +8,6 @@ var debug = _debug('app:bin:server')
 
 var host = config.server_host
 var port = config.server_port
-server.listen(port, function(){
+server.listen(port, function () {
   debug('Server started listening to: %s:%s', host, port)
 })

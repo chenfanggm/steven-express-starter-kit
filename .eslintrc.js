@@ -28,10 +28,6 @@ module.exports = {
     node: true,
     mocha: true
   },
-  globals: {
-    __DEV__: true,
-    __PROD__: true
-  },
   plugins: [
     "html",
     "promise"

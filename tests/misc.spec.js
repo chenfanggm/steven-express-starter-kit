@@ -1,8 +1,8 @@
 var request = require('supertest-as-promised')
 var httpStatus = require('http-status')
 var chai = require('chai')
-var app = require('../server')
 var expect = chai.expect
+var app = require('../server')
 
 chai.config.includeStack = true
 
@@ -14,7 +14,7 @@ describe('## Misc', function () {
         .get('/api/v1/health')
         .expect(httpStatus.OK)
         .then(function (res) {
-          //expect(res.text).to.equal('OK')
+          expect(res.body.message).to.equal('OK')
           done()
         })
         .catch(done)

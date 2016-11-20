@@ -1,9 +1,6 @@
 var Router = require('express').Router()
-var validator = require('express-validator')
-var httpStatus = require('http-status')
 var APIError = require('../utils/APIError')
 var UserService = require('../services/UserService')
-var debug = require('debug')('app:UserRouter')
 
 Router.get('/:email',
   function (req, res, next) {

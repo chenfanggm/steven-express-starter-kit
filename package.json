@@ -18,7 +18,8 @@
     "start": "better-npm-run start",
     "forever": "better-npm-run start",
     "test": "better-npm-run test",
-    "cluster": "better-npm-run cluster"
+    "cluster": "better-npm-run cluster",
+    "lint": "eslint --ext .js ."
   },
   "betterScripts": {
     "dev": {
@@ -42,7 +43,7 @@
       }
     },
     "test": {
-      "command": "node node_modules/.bin/isparta cover _mocha -- --ui bdd --reporter spec --colors ./test/**/*.spec.js",
+      "command": "node node_modules/.bin/isparta cover _mocha -- --ui bdd --reporter spec --colors ./tests/**/*.spec.js",
       "env": {
         "NODE_ENV": "test",
         "DEBUG": "app:*"

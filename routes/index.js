@@ -3,9 +3,9 @@ var UserRouter = require('./UserRouter')
 
 router.use('/user', UserRouter)
 
-router.use('/health', function(req, res) {
+router.use('/health', function (req, res) {
   res.json({
-    health: 'OK'
+    message: 'OK'
   })
 })
 

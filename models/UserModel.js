@@ -1,5 +1,6 @@
 var mongoose = require('mongoose')
 var moment = require('moment')
+var bcrypt = require('bcrypt')
 var httpStatus = require('http-status')
 var TokenEntity = require('../entities/TokenEntity')
 var APIError = require('../utils/APIError')
@@ -22,18 +23,18 @@ var ROLE = {
 /**
  * User Schema
  */
-var Token = new TokenEntity
+var Token = new TokenEntity()
 var UserSchema = new mongoose.Schema({
   role: { type: Number, min: 0, max: 3, default: ROLE.USER },
   email: { type: String, required: true, unique: true },
   username: { type: String, unique: true, sparse: true },
   password: { type: String, required: true },
   token: { type: Token },
-  lastLogin: { type: Date, required: true, default: moment().format("YYYY-MM-DD HH:mm:ss") },
-  lastReadMessageAt: { type: Date, required: true, default: moment().format("YYYY-MM-DD HH:mm:ss") },
+  lastLogin: { type: Date, required: true, default: moment().format('YYYY-MM-DD HH:mm:ss') },
+  lastReadMessageAt: { type: Date, required: true, default: moment().format('YYYY-MM-DD HH:mm:ss') },
   status: { type: Number, required: true, default: STATUS.ACTIVE },
-  createdAt: { type: Date, required: true, default: moment().format("YYYY-MM-DD HH:mm:ss") },
-  updatedAt: { type: Date, required: true, default: moment().format("YYYY-MM-DD HH:mm:ss") }
+  createdAt: { type: Date, required: true, default: moment().format('YYYY-MM-DD HH:mm:ss') },
+  updatedAt: { type: Date, required: true, default: moment().format('YYYY-MM-DD HH:mm:ss') }
 })
 
 /**
@@ -46,7 +47,7 @@ var UserSchema = new mongoose.Schema({
  */
 UserSchema
   .virtual('userInfo')
-  .get(function() {
+  .get(function () {
     return {
       id: this._id,
       role: this.role,
@@ -65,7 +66,7 @@ UserSchema
 // validate email format
 UserSchema.path('email')
   .validate(function (email) {
-    var emailRegex = /^([\w\-\.]+@([\w-]+\.)+[\w-]{2,4})?$/
+    var emailRegex = /^([\w\-.]+@([\w-]+\.)+[\w-]{2,4})?$/
     return emailRegex.test(email)
   }, 'email is invalid')
 
@@ -74,8 +75,8 @@ UserSchema.path('email')
   .validate(function (value, response) {
     mongoose.models['User']
       .findOne({'email': value}, function (err, user) {
-        if(err) throw err
-        if(user) return response(false)
+        if (err) throw err
+        if (user) return response(false)
         response(true)
       })
   }, 'email is already exist')
@@ -85,8 +86,8 @@ UserSchema.path('username')
   .validate(function (value, response) {
     mongoose.models['User']
       .findOne({'username': value}, function (err, user) {
-        if(err) throw err
-        if(user) return response(false)
+        if (err) throw err
+        if (user) return response(false)
         response(true)
       })
   }, 'username is already exist')
@@ -94,7 +95,7 @@ UserSchema.path('username')
 /**
  * Pre Save
  */
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
   if (!this.isNew) {
     return next()
   }
@@ -116,9 +117,9 @@ UserSchema.methods = {
 
 UserSchema.statics = {
   getLastRecordId: function (cb) {
-    mongoose.models['User'].find().sort({_id:-1}).limit(1).exec(function (err, user) {
-      if(err) throw err
-      if(user && user.length!=0){
+    mongoose.models['User'].find().sort({_id: -1}).limit(1).exec(function (err, user) {
+      if (err) throw err
+      if (user && user.length !== 0) {
         return cb(user[0].userId)
       }
       return cb(0)
