@@ -25,7 +25,7 @@ var app = express()
 // ========================================================
 // Middleware
 // ========================================================
-debug('Init mongoose...')
+/*debug('Init mongoose...')
 mongoose.Promise = require('bluebird')
 mongoose.connect(config.mongo.uri, { server: { socketOptions: { keepAlive: 1 } } })
 mongoose.connection.on('error', function () {
@@ -35,7 +35,7 @@ if (config.env === 'development') {
   mongoose.set('debug', function (collectionName, method, query, doc) {
     debug(collectionName + '.' + method, util.inspect(query, false, 20), doc)
   })
-}
+}*/
 
 debug('Init middleware...')
 if (config.env === 'development') { app.use(logger('dev')) }
