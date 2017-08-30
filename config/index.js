@@ -53,7 +53,8 @@ var config = {
   // ----------------------------------
   log: {
     level: "debug",
-    colorize: true
+    colorize: true,
+    requestLogFile: path.resolve('../logs/start-kit.log')
   },
   // ----------------------------------
   // Test Configuration

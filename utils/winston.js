@@ -1,12 +1,18 @@
-var winston = require('winston')
-var config = require('../config')
+const winston = require('winston')
+require('winston-daily-rotate-file')
+const config = require('../config')
 
-var logger = new (winston.Logger)({
-  level: config.log.level,
+const logger = new (winston.Logger)({
+  level: config.logger.level,
   transports: [
-    new winston.transports.Console({
-      json: true,
-      colorize: config.log.colorize
+    new winston.transports.DailyRotateFile({
+      filename: config.log.requestLogFile,
+      datePattern: 'yyyy-MM-dd.',
+      prepend: true,
+      colorize: false,
+      json: false,
+      prettyPrint: true,
+      silent: false
     })
   ]
 })
