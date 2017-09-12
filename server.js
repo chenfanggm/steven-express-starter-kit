@@ -61,8 +61,10 @@ app.use(helmet())
 
 // routes
 app.use('/api/v1', routes)
-// static
+// temporary static
 app.use(express.static('dist'))
+// static
+app.use(express.static('static'))
 // 404
 app.use('/', function (req, res, next) {
   next(new APIError('Method Not Found', httpStatus.NOT_FOUND, true))

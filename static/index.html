@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+    <title>Express Playground</title>
+</head>
+
+<body>
+
+<div id="lychii-container" style="width: 600px; height: 400px; margin: 150px auto 0 auto;"></div>
+
+<script type="text/javascript">
+    function initLychii() {
+        if (window && window.lychii) {
+          window.lychii.init({
+            mount: '#lychii-container',
+            layout: 'fit'
+          })
+        }
+    }
+</script>
+<script type="text/javascript"
+        src="http://localhost:3000/index.js"
+        onload="initLychii()" defer></script>
+</body>
+</html>
