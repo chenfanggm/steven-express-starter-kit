@@ -27,6 +27,11 @@ var config = {
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     preflightContinue: false
   },
+  proxy: {
+    enabled: true,
+    target: '<your-proxy-server>',
+    changeOrigin: true
+  },
   // ----------------------------------
   // Database Configuration
   // ----------------------------------

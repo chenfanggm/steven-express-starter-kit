@@ -9,6 +9,7 @@ var cors = require('cors')
 var validator = require('express-validator')
 var compression = require('compression')
 var helmet = require('helmet')
+var proxy = require('http-proxy-middleware')
 var httpStatus = require('http-status')
 var mongoose = require('mongoose')
 var util = require('util')
@@ -59,6 +60,10 @@ app.use(helmet())
   }))
 } */
 
+//proxy
+if (config.proxy && config.proxy.enabled) {
+  app.use('/api/logs', proxy(config.proxy))
+}
 // routes
 app.use('/api/v1', routes)
 // temporary static
